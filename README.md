@@ -8,7 +8,7 @@ This sample project demonstrates demonstrates several things:
 * Webpack configuration using a "base" set of config options, and multiple extensions of that for development, production, offline test execution, and live test execution in a browser
 * Test configuration using Mocha+JSDOM+Chai+Sinon+Enzyme, allowing execution of React component unit tests in a Node environment without the need for Karma or a browser
 * Basic ESLint configuration for style checking
-* Use of the [shrinkpack](https://github.com/JamieMason/shrinkpack) tool for committing dependencies with minimal overhead, thus allowing dependable and repeatable installations while minimizing the rsk of being affected by problems like NPM-Left-Pad-Gate
+* Use of the [shrinkpack](https://github.com/JamieMason/shrinkpack) tool for committing dependencies with minimal overhead, thus allowing dependable and repeatable installations while minimizing the risk of being affected by problems like NPM-Left-Pad-Gate
 * Creation of a React component that is loaded asynchronously and rendered when it becomes available
 
 
