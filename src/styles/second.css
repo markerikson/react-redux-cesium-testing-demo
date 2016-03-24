@@ -1,0 +1,5 @@
+/* A second CSS file that is imported, to show that
+   editing this causes a reload of components */
+p {
+    color: blue;
+}
