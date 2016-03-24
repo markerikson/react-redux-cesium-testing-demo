@@ -46,7 +46,7 @@ A typical Shrinkpack workflow for managing dependencies looks like this:
 npm install -g shrinkpack
 
 # install whatever packages you want to update
-npm install some-package --dev
+npm install some-package --save-dev
 
 # once you are ready to persist the upgrade, then re-generate 
 # npm-shrinkwrap.json, including devDependencies
