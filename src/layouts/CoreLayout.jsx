@@ -19,7 +19,7 @@ export default class CoreLayout extends React.Component {
         super(props);
 
         this.state = {
-            LoadedTestComponent : null
+            DynamicallyLoadedComponent : null
         };
     }
     
