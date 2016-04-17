@@ -7,7 +7,7 @@ const projectBasePath = path.resolve(__dirname);
 
 let cesiumModuleFolder = "node_modules/cesium/";
 let cesiumBuildFolder = path.join(cesiumModuleFolder, "/Build/");
-let cesiumSourceFolder = path.join("cesiumModuleFolder", "/Source/");
+let cesiumSourceFolder = path.join(cesiumModuleFolder, "/Source/");
 
 let cesiumDebugName = "/CesiumUnminified/";
 let cesiumProdName = "/Cesium/";
@@ -18,6 +18,7 @@ let cesiumProdFolder = path.join(cesiumBuildFolder, cesiumProdName);
 let localCesiumDebugPath = path.join(projectBasePath, cesiumDebugFolder);
 let localCesiumProdPath = path.join(projectBasePath, cesiumProdFolder);
 
+const localCesiumSourcePath = path.join(projectBasePath, cesiumSourceFolder);
 
 const config = {
     env : process.env.NODE_ENV,
@@ -39,7 +40,8 @@ const config = {
         buildFolder : cesiumBuildFolder,
         sourceFolder : cesiumSourceFolder,
         debugBuildPath : localCesiumDebugPath,
-        prodBuildPath : localCesiumProdPath
+        prodBuildPath : localCesiumProdPath,
+        sourcePath : localCesiumSourcePath
     }
 };
 

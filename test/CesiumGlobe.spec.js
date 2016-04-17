@@ -2,7 +2,7 @@ import React from 'react'
 import {mount, render, shallow} from 'enzyme'
 import sinon from 'sinon';
 
-import {BillboardCollection} from "cesium/Cesium";
+import {BillboardCollection} from "cesiumDll/Cesium";
 
 import CesiumBillboard from "components/CesiumBillboard";
 

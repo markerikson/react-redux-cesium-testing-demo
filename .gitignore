@@ -1,10 +1,12 @@
-node_modules
+node_modules/
 *.log
 .DS_Store
-lib
-coverage
-dist
-disttest
+lib/
+coverage/
+dist/
+distdll/
+disttest/
+tmp/
 
 
 

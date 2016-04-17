@@ -93,10 +93,14 @@ const devWebpackConfig = merge.smart(commonWebpackSettings.baseWebpackConfig, {
      */
         new webpack.NoErrorsPlugin(),
 
-        new webpack.optimize.CommonsChunkPlugin({
-            names: ["cesiumBundle", "vendor"],
-            minChunks: Infinity,
-            filename : "[name].js"
+        new webpack.DllReferencePlugin({
+            context: ".",
+            manifest: require(path.join(PATHS.base, "distdll/vendor-manifest.json")),
+        }),
+
+        new webpack.DllReferencePlugin({
+            scope : "cesiumDll",
+            manifest: require(path.join(PATHS.base, "distdll/cesiumDll-manifest.json")),
         }),
 
     /**
@@ -112,7 +116,7 @@ const devWebpackConfig = merge.smart(commonWebpackSettings.baseWebpackConfig, {
     ],
 
     // Generate sourcemaps using a faster method
-    devtool : 'cheap-module-inline-source-map'
+    devtool : '#cheap-module-inline-source-map'
 
 })
 

@@ -13,6 +13,9 @@
     "test:build": "rimraf \"distTest/*\" && cross-env NODE_ENV=test webpack --config ./webpack/webpack.test.config.js --target node",
     "test:run": "mocha --require test/mocha_helper.js disttest/appTestBundle.js || exit 0",
     "test:dev": "cross-env NODE_ENV=test node testServer.js"
+    "dll:build:cesium": "webpack --config webpack/webpack.cesium.dll.config.js",
+    "dll:build:vendor": "webpack --config webpack/webpack.vendor.dll.config.js",
+    "dll:build": "npm run dll:build:vendor && npm run dll:build:cesium"
   },
   "author": "Mark Erikson",
   "license": "ISC",

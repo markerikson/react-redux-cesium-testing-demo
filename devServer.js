@@ -14,6 +14,8 @@ const CESIUM = configValues.CESIUM;
 const app = express();
 const compiler = webpack(webpackConfig);
 
+const dllPath = path.join(PATHS.base, "distdll");
+
 app.use(require('webpack-dev-middleware')(compiler, {
     /**
      * Webpack-dev-middleware config
@@ -31,6 +33,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.use("/", express.static(PATHS.src));
+app.use("/", express.static(dllPath));
 app.use("/cesium", express.static(CESIUM.debugBuildPath));
 
 

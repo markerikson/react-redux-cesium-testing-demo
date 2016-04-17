@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Cesium, {Billboard, BillboardCollection} from "cesium/Cesium"
+import Cesium, {Billboard, BillboardCollection} from "cesiumDll/Cesium"
 
 import fireflyIcon from "styles/Firefly.png";
 

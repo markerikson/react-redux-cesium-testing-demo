@@ -9,7 +9,7 @@ import {findDOMNode} from "react-dom"
 window.CESIUM_BASE_URL = "/cesium/";
 
 import "assets/cesiumWidgets.css"
-import cs from "cesium/Cesium"
+import cs from "cesiumDll/Cesium"
 
 
 
