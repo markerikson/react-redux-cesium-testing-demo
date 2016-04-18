@@ -1,15 +1,27 @@
 # React-Redux-Cesium-Testing Demo
 
 
-This sample project demonstrates demonstrates several things:
+This sample project demonstrates a variety of useful project configuration and setup techniques, including:
 
-* Application code using React and Redux, with bare-basic usage of loading images and CSS
-* Use of the Cesium 3D globe library, inside a React component, installed using NPM, and with the Cesium pre-built assets served directly from `/node_modules/cesium/` instead of requiring a copy step during development
-* Webpack configuration using a "base" set of config options, and multiple extensions of that for development, production, offline test execution, and live test execution in a browser
-* Test configuration using Mocha+JSDOM+Chai+Sinon+Enzyme, allowing execution of React component unit tests in a Node environment without the need for Karma or a browser
-* Basic ESLint configuration for style checking
-* Use of the [shrinkpack](https://github.com/JamieMason/shrinkpack) tool for committing dependencies with minimal overhead, thus allowing dependable and repeatable installations while minimizing the risk of being affected by problems like NPM-Left-Pad-Gate
-* Creation of a React component that is loaded asynchronously and rendered when it becomes available
+- **Application**
+  - Application code using React and Redux, with bare-basic usage of loading images and CSS
+  - Creation of a React component that is loaded asynchronously and rendered when it becomes available
+  - Usage of the Cesium 3D globe library inside a React component, with another React component attaching a Cesium billboard to the globe
+- **Webpack**
+  - Configuration using a "base" set of config options, and multiple extensions of that for development, production, and multiple test execution approaches
+  - Use of Webpack's `DllPlugin` and `DllReferencePlugin` to pre-compile specific dependencies, allowing later application builds to be faster since those dependencies don't need to be parsed
+  - Use of Cesium as installed from NPM, and with the Cesium pre-built assets served directly from `/node_modules/cesium/` instead of requiring a copy step during development
+- **Testing**
+  - Test configuration using Mocha+JSDOM+Chai+Sinon+Enzyme, allowing execution of application tests and React component unit tests in a Node environment without the need for Karma or a browser
+  - Testing of a React component that uses Cesium primitives
+  - Demonstration of several different approaches for running Mocha tests:
+    - Build bundle with Webpack, run Mocha against the bundle
+    - Use of `mocha-loader` to run a live-watching test server, with results displayed in a browser
+    - Use of `mocha-webpack` to run a live-watching test process, with results displayed in a console
+- **Miscellaneous Setup**
+  - Basic ESLint configuration for style checking
+  - Use of the [shrinkpack](https://github.com/JamieMason/shrinkpack) tool for committing dependencies with minimal overhead, thus allowing dependable and repeatable installations while minimizing the risk of being affected by problems like NPM-Left-Pad-Gate
+
 
 
 Note that this codebase started as a prototype / research project, and any actual code in here is probably pretty ugly and not well documented.  The intent is to demonstrate a mostly-working project configuration that implements some specific capabilities, and might serve as a useful example for others interested in the same approaches.  You probably don't want to use this as the basis for an actual production application :)
@@ -19,6 +31,10 @@ Note that this codebase started as a prototype / research project, and any actua
 
 Clone this repo, and run `npm install`.  All the dependencies should be installed directly from the `/node_shrinkwrap/` folder, rather than having to go out to the NPM servers.
 
+Then, execute `npm run dll:build` to pre-compile the "vendor" and "cesiumDll" bundles, which need to be available during the development process.
+
+Finally, run `npm run dev` to start development.
+
 ### Development commands
 
 These commands are NPM scripts defined in the "scripts" section of [package.json](package.json)
@@ -26,11 +42,22 @@ These commands are NPM scripts defined in the "scripts" section of [package.json
 - `npm run dev`: starts the local app development-mode server, at http://localhost:3000
 - `npm start`: same as `npm run dev`
 - `npm run build`: does a production compile of the source, and writes it to `/dist`
-- `npm test`: does a compile of the test dependencies, writes to `/disttest`, and executes the test suite
+- `npm run dll:build`: builds both the "vendor" and "cesiumDll" bundles
+- `npm run dll:build:vendor`: builds the "vendor" bundle
+- `npm run dll:build:cesium`: builds the "cesiumDll" bundle
+
+
 - `npm run lint`: executes ESLint to flag code style problems
+
+
+- `npm test`: does a compile of the test dependencies, writes to `/disttest`, and executes the test suite
+
+
 - `npm run test:build`: does the test compilation step
 - `npm run test:run`: uses the Mocha test runner to execute an already-built test suite
-- `npm run test:dev`: starts the local test-running development-mode server, at http://localhost:3001
+- `npm run test:dev`: starts the local test-running development-mode server for `mocha-loader`, at http://localhost:3001
+- `npm run test:fast`: uses `mocha-webpack` to compile and execute the test suite once
+- `npm run test:watch`: starts `mocha-webpack` to execute tests in live-watching mode in a console
 
 
 ### Managing Dependencies using Shrinkpack
@@ -70,6 +97,7 @@ git commit -m "Updated some-package"
 - $REPO
   - **dist:** output folder for the production build
   - **disttest**: output folder for the test build
+  - **distdll**: output folder for the "DLL" bundles
   - **node_modules**: local installations of JS build and app dependencies (NOT checked in)
   - **node_shrinkwrap**: downloaded zip files needed to install those dependencies (checked in)
   - **src**: application source
