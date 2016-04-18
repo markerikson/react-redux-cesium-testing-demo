@@ -17,9 +17,7 @@ const CESIUM = configValues.CESIUM;
 
 const prodWebpackConfig = merge(commonWebpackSettings.baseWebpackConfig, {
     entry : {
-        app : PATHS.src + "/index.js",
-        vendor : commonWebpackSettings.baseDependencies,
-        cesiumBundle : ["cesium/Cesium"]
+        app : PATHS.src + "/index.js"
     },
 
     module : {
@@ -27,19 +25,16 @@ const prodWebpackConfig = merge(commonWebpackSettings.baseWebpackConfig, {
             commonWebpackSettings.baseBabelLoader,
             commonWebpackSettings.baseImageLoaders,
             // Extract CSS during build
-            { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css')},
-            { test: /Cesium\.js$/, loader: "exports?window.Cesium!script" }
+            { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css')}
         ],
 
         noParse : [
-            path.join(CESIUM.prodBuildPath, "/Cesium.js")
         ]
     },
 
 
     resolve : {
         alias : {
-            cesium : CESIUM.prodBuildPath
         }
     },
 
@@ -50,10 +45,14 @@ const prodWebpackConfig = merge(commonWebpackSettings.baseWebpackConfig, {
         new webpack.optimize.DedupePlugin(),
 
 
-        new webpack.optimize.CommonsChunkPlugin({
-            names: ["cesiumBundle", "vendor"],
-            minChunks: Infinity,
-            filename : "[name].js"
+        new webpack.DllReferencePlugin({
+            context: ".",
+            manifest: require(path.join(PATHS.base, "distdll/vendor-manifest.json")),
+        }),
+
+        new webpack.DllReferencePlugin({
+            scope : "cesiumDll",
+            manifest: require(path.join(PATHS.base, "distdll/cesiumDll-manifest.json")),
         }),
 
         // Output extracted CSS to a file

@@ -46,9 +46,7 @@ const devWebpackConfig = merge.smart(commonWebpackSettings.baseWebpackConfig, {
             // Hook up the hot-reloading middleware so it can be notified a bundle has been rebuilt
             'webpack-hot-middleware/client',
             PATHS.src + "/index.js"
-        ],
-        vendor : commonWebpackSettings.baseDependencies,
-        cesiumBundle : ["cesium/Cesium"]
+        ]
     },
 
     module : {
@@ -57,17 +55,14 @@ const devWebpackConfig = merge.smart(commonWebpackSettings.baseWebpackConfig, {
             commonWebpackSettings.baseImageLoaders,
 
             { test: /\.css$/,loaders: ['style', 'css']},
-            { test: /Cesium\.js$/, loader: "exports?window.Cesium!script" }
         ],
 
         noParse : [
-            path.join(CESIUM.debugBuildPath, "/Cesium.js")
         ]
     },
 
     resolve : {
         alias : {
-            cesium : CESIUM.debugBuildPath
         }
     },
 
