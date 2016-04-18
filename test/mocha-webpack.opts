@@ -1,0 +1,4 @@
+--colors
+--require test/mocha_helper.js
+--reporter mocha-better-spec-reporter
+--reporter-options stack-exclude=**/+(mocha|chai*)/**,show-back-order=false,hide-titles=true

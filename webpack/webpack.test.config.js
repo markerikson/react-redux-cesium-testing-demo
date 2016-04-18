@@ -59,8 +59,9 @@ const testWebpackConfig = merge(commonWebpackSettings.baseWebpackConfig, {
 
     resolve : {
         alias : {
-            cesium : CESIUM.prodBuildPath,
+            cesiumDll : CESIUM.prodBuildPath,
             sinon: 'sinon/pkg/sinon.js',
+            test : path.join(PATHS.base, "test")
         }
     },
 
@@ -75,16 +76,18 @@ const testWebpackConfig = merge(commonWebpackSettings.baseWebpackConfig, {
                 test: /(\.jpg|\.jpeg|\.png|\.gif|\.svg)$/,
                 loader: 'null-loader'
             },
+
+            // We'll load Cesium directly off disk under test, rather than use the DLL.
+            // This is mostly because it's what I initially got working, and haven't yet
+            // taken time to figure out a better way to do it.
             { test: /Cesium\.js$/, loader: "exports?window.Cesium!script" },
-            {
-                test: /sinon\.js/,
-                loader: 'imports?define=>false,require=>false',
-            },
+
+            // Sinon is apparently really weird, and needs special handling when loading
+            { test: /sinon\.js/,  loader: 'imports?define=>false,require=>false' },
             { test: /\.json/, loader : "json" }
         ],
 
         noParse : [
-            path.join(CESIUM.prodBuildPath, "/Cesium.js"),
             /sinon\.js/
         ]
     },
@@ -111,7 +114,7 @@ const testWebpackConfig = merge(commonWebpackSettings.baseWebpackConfig, {
         publicPath: false
     },
 
-    devtool : "source-map"
+    devtool : "#cheap-module-source-map"
 });
 
 
