@@ -6,12 +6,19 @@ import fireflyIcon from "styles/Firefly.png";
 // A React component that manages some Cesium primitives
 export default class CesiumBillboard extends Component {
     componentDidMount() {
-        this.billboards = new BillboardCollection();
-    }
+        const {scene} = this.props;
 
-    addBillboard() {
-        this.billboards.add({
-            position : new Cesium.Cartesian3(1.0, 2.0, 3.0),
+
+        this.billboards = new BillboardCollection();
+
+        if(scene) {
+            scene.primitives.add(this.billboards);
+        }
+
+
+
+        this.billboard = this.billboards.add({
+            position : Cesium.Cartesian3.fromDegrees(-117.0, 35.0, 10000),
             image : fireflyIcon
         });
     }
@@ -21,6 +28,11 @@ export default class CesiumBillboard extends Component {
     }
 
     componentWillUnmount() {
+        const {scene} = this.props;
+        if(scene) {
+            scene.primitives.remove(this.billboards);
+        }
+
         this.billboards.destroy();
     }
 }

@@ -11,6 +11,7 @@ window.CESIUM_BASE_URL = "/cesium/";
 import "assets/cesiumWidgets.css"
 import cs from "cesiumDll/Cesium"
 
+import CesiumBillboard from "./CesiumBillboard";
 
 
 
@@ -31,8 +32,12 @@ class CesiumGlobe extends Component {
 
 
   render() {
+    const billboard = (this.viewer) ? <CesiumBillboard scene={this.viewer.scene} /> : null;
+
     return (
-      <div className="cesiumWidget" ref="cesiumNode" />
+      <div className="cesiumWidget" ref="cesiumNode">
+        {billboard}
+      </div>
 
     );
   }
