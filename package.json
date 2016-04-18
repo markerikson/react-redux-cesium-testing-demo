@@ -54,6 +54,7 @@
     "mocha": "^2.4.5",
     "mocha-better-spec-reporter": "^3.0.1",
     "mocha-loader": "^0.7.1",
+    "mocha-webpack": "^0.3.0",
     "normalize.css": "^3.0.3",
     "null-loader": "^0.1.1",
     "react-addons-test-utils": "^0.14.7",
